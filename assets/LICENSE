@@ -1,0 +1,63 @@
+MIT License
+
+Copyright (c) 2025 TokenMaster Team
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Additional Terms for TokenMaster AI Optimizer
+
+### Commercial Use
+This software may be used for commercial purposes without restriction, subject to the MIT License terms above.
+
+### AI Model Integration
+Users are responsible for obtaining valid API keys and complying with the terms of service of integrated AI providers:
+- Google Gemini API
+- Perplexity AI API  
+- DeepSeek API
+- AIMLAPI
+
+### Data Privacy
+This software does not collect, store, or transmit personal data beyond what is necessary for API communication with configured AI services. Users are responsible for ensuring compliance with applicable data protection regulations.
+
+### Security
+While this software implements security best practices, users are responsible for:
+- Secure storage of API keys
+- Regular security updates
+- Proper access controls in production environments
+- Compliance with security requirements in their jurisdiction
+
+### Support
+Technical support is provided on a best-effort basis through:
+- GitHub Issues: https://github.com/company/tokenmaster-ai-optimizer/issues
+- Email: support@tokenmaster.ai
+- Documentation: https://docs.tokenmaster.ai
+
+### Disclaimer
+THE AUTHORS MAKE NO REPRESENTATIONS OR WARRANTIES REGARDING THE ACCURACY, COMPLETENESS, OR PERFORMANCE OF AI MODELS INTEGRATED WITHIN THIS SOFTWARE. USERS ASSUME ALL RISKS ASSOCIATED WITH THE USE OF AI-GENERATED CONTENT AND OPTIMIZATIONS.
+
+### Attribution
+When redistributing this software or derivative works, please include attribution to the TokenMaster Team and a link to the original repository.
+
+---
+
+TokenMaster AI Optimizer v2.1.0
+https://github.com/company/tokenmaster-ai-optimizer
+Copyright (c) 2025 TokenMaster Team

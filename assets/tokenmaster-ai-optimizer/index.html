@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TokenMaster - Zaawansowany System Optymalizacji Zapytań AI</title>
+    <meta name="description" content="Profesjonalny system optymalizacji zapytań AI z rotacją kluczy i real-time monitoring">
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#21808D">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo-section">
+                        <h1 class="logo">🚀 TokenMaster</h1>
+                        <span class="version">v2.1 Pro</span>
+                    </div>
+                    <div class="system-status">
+                        <div class="status-indicator" :class="systemStatus.class">
+                            <span class="status-dot"></span>
+                            {{ systemStatus.text }}
+                        </div>
+                        <div class="api-health">
+                            Klucze API: {{ healthyKeysCount }}/{{ totalKeysCount }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Application -->
+        <main class="main-container">
+            <div class="container">
+                <div class="app-layout">
+                    <!-- Main Panel -->
+                    <section class="main-panel">
+                        <div class="card">
+                            <div class="card__body">
+                                <h2 class="section-title">Optymalizator Zapytań AI</h2>
+                                
+                                <!-- Query Input -->
+                                <div class="form-group">
+                                    <label class="form-label" for="queryInput">
+                                        Zapytanie do optymalizacji
+                                        <span class="required">*</span>
+                                    </label>
+                                    <textarea 
+                                        id="queryInput"
+                                        v-model="queryText"
+                                        class="form-control query-textarea"
+                                        placeholder="Wprowadź swoje zapytanie SQL lub opis problemu wydajnościowego..."
+                                        rows="4"
+                                        @input="validateQuery"
+                                    ></textarea>
+                                    <div class="query-stats">
+                                        <span>Znaków: {{ queryText.length }}</span>
+                                        <span v-if="estimatedTokens">• Szacowane tokeny: {{ estimatedTokens }}</span>
+                                    </div>
+                                </div>
+
+                                <!-- Model Selection -->
+                                <div class="form-group">
+                                    <label class="form-label" for="modelSelect">Model AI</label>
+                                    <select id="modelSelect" v-model="selectedModel" class="form-control">
+                                        <option value="">Wybierz model...</option>
+                                        <option 
+                                            v-for="model in aiModels" 
+                                            :key="model.id" 
+                                            :value="model.id"
+                                        >
+                                            {{ model.name }} - {{ model.pricing }}
+                                        </option>
+                                    </select>
+                                    <div v-if="selectedModelInfo" class="model-info">
+                                        <small>{{ selectedModelInfo.description }}</small>
+                                        <div class="model-metrics">
+                                            <span>Czas odpowiedzi: {{ getModelMetric('responseTime') }}ms</span>
+                                            <span>Sukces: {{ (getModelMetric('successRates') * 100).toFixed(1) }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Optimization Type -->
+                                <div class="form-group">
+                                    <label class="form-label" for="optimizationType">Typ optymalizacji</label>
+                                    <select id="optimizationType" v-model="selectedOptimization" class="form-control">
+                                        <option value="">Wybierz typ optymalizacji...</option>
+                                        <optgroup 
+                                            v-for="category in optimizationTypes" 
+                                            :key="category.category"
+                                            :label="category.categoryName"
+                                        >
+                                            <option 
+                                                v-for="type in category.types" 
+                                                :key="type.id" 
+                                                :value="type.id"
+                                            >
+                                                {{ type.name }} ({{ type.effectiveness }}% skuteczności)
+                                            </option>
+                                        </optgroup>
+                                    </select>
+                                    <div v-if="selectedOptimizationInfo" class="optimization-info">
+                                        <p>{{ selectedOptimizationInfo.description }}</p>
+                                        <div class="optimization-metrics">
+                                            <span class="metric">ROI: {{ selectedOptimizationInfo.roi }}</span>
+                                            <span class="metric">Złożoność: {{ selectedOptimizationInfo.complexity }}</span>
+                                            <span class="metric">Skuteczność: {{ selectedOptimizationInfo.effectiveness }}%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div class="action-buttons">
+                                    <button 
+                                        @click="optimizeQuery"
+                                        :disabled="!canOptimize || isProcessing"
+                                        class="btn btn--primary btn--lg"
+                                    >
+                                        <span v-if="!isProcessing">🚀 Optymalizuj Zapytanie</span>
+                                        <span v-else>⚡ Przetwarzanie...</span>
+                                    </button>
+                                    <button 
+                                        @click="clearForm"
+                                        class="btn btn--secondary"
+                                        :disabled="isProcessing"
+                                    >
+                                        🗑️ Wyczyść
+                                    </button>
+                                </div>
+
+                                <!-- Processing Status -->
+                                <div v-if="isProcessing" class="processing-status">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" :style="{width: processingProgress + '%'}"></div>
+                                    </div>
+                                    <div class="processing-details">
+                                        <span>{{ processingStep }}</span>
+                                        <span>{{ processingProgress }}%</span>
+                                    </div>
+                                </div>
+
+                                <!-- Results -->
+                                <div v-if="lastResult" class="results-section">
+                                    <h3>Wyniki Optymalizacji</h3>
+                                    <div class="result-card">
+                                        <div class="result-header">
+                                            <span class="result-timestamp">{{ formatTimestamp(lastResult.timestamp) }}</span>
+                                            <span class="result-model">{{ lastResult.model }}</span>
+                                        </div>
+                                        <div class="result-content">
+                                            <h4>Zoptymalizowane Zapytanie:</h4>
+                                            <pre class="optimized-query">{{ lastResult.optimizedQuery }}</pre>
+                                            <h4>Rekomendacje:</h4>
+                                            <ul class="recommendations">
+                                                <li v-for="rec in lastResult.recommendations" :key="rec">{{ rec }}</li>
+                                            </ul>
+                                        </div>
+                                        <div class="result-actions">
+                                            <button @click="copyResult" class="btn btn--secondary btn--sm">📋 Kopiuj</button>
+                                            <button @click="saveToHistory" class="btn btn--secondary btn--sm">💾 Zapisz</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Sidebar -->
+                    <aside class="sidebar">
+                        <!-- Quick Stats -->
+                        <div class="card stats-card">
+                            <div class="card__body">
+                                <h3>Statystyki Real-time</h3>
+                                <div class="stats-grid">
+                                    <div class="stat-item">
+                                        <span class="stat-value">{{ queryHistory.length }}</span>
+                                        <span class="stat-label">Zapytania</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-value">{{ averageResponseTime }}ms</span>
+                                        <span class="stat-label">Śr. czas</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-value">{{ successRate }}%</span>
+                                        <span class="stat-label">Sukces</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-value">${{ totalCost.toFixed(3) }}</span>
+                                        <span class="stat-label">Koszt</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- History -->
+                        <div class="card history-card">
+                            <div class="card__body">
+                                <div class="section-header">
+                                    <h3>Historia Zapytań</h3>
+                                    <button @click="exportHistory" class="btn btn--secondary btn--sm">📥 Export</button>
+                                </div>
+                                <div class="history-list">
+                                    <div 
+                                        v-for="item in queryHistory.slice(0, 20)" 
+                                        :key="item.id"
+                                        class="history-item"
+                                        @click="loadHistoryItem(item)"
+                                    >
+                                        <div class="history-preview">{{ truncateText(item.query, 50) }}</div>
+                                        <div class="history-meta">
+                                            <span>{{ item.model }}</span>
+                                            <span>{{ formatTimestamp(item.timestamp) }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-if="queryHistory.length === 0" class="empty-history">
+                                    Brak historii zapytań
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Performance Chart -->
+                        <div class="card chart-card">
+                            <div class="card__body">
+                                <h3>Wydajność Modeli</h3>
+                                <canvas id="performanceChart" height="200"></canvas>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </main>
+
+        <!-- Export Modal -->
+        <div v-if="showExportModal" class="modal-overlay" @click="closeExportModal">
+            <div class="modal-content" @click.stop>
+                <div class="modal-header">
+                    <h3>Export Danych</h3>
+                    <button @click="closeExportModal" class="modal-close">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="export-options">
+                        <label class="export-option">
+                            <input type="radio" v-model="exportFormat" value="json">
+                            <span>JSON - Pełne dane</span>
+                        </label>
+                        <label class="export-option">
+                            <input type="radio" v-model="exportFormat" value="csv">
+                            <span>CSV - Tabela</span>
+                        </label>
+                    </div>
+                    <div class="export-preview">
+                        <h4>Podgląd ({{ queryHistory.length }} rekordów):</h4>
+                        <pre>{{ exportPreview }}</pre>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button @click="downloadExport" class="btn btn--primary">📥 Pobierz</button>
+                    <button @click="closeExportModal" class="btn btn--secondary">Anuluj</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-info">
+                        <span>TokenMaster Pro v2.1</span>
+                        <span>•</span>
+                        <span>AI Query Optimization Engine</span>
+                        <span>•</span>
+                        <span>{{ getCurrentTime() }}</span>
+                    </div>
+                    <div class="footer-tech">
+                        <span>Vue 3 • Modern CSS3 • Progressive Web App</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

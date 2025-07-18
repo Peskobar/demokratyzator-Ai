@@ -1,0 +1,171 @@
+# TokenMaster AI Optimizer - Production Environment Variables
+# Skopiuj do .env i uzupełnij rzeczywiste wartości
+
+# ========================================
+# PODSTAWOWA KONFIGURACJA APLIKACJI
+# ========================================
+NODE_ENV=production
+APP_VERSION=2.1.0
+APP_NAME=TokenMaster AI Optimizer
+PORT=8080
+HOST=0.0.0.0
+
+# ========================================
+# BAZA DANYCH POSTGRESQL
+# ========================================
+DB_PASSWORD=USTAW_SILNE_HASLO_BAZY_DANYCH
+POSTGRES_DB=tokenmaster_db
+POSTGRES_USER=tokenmaster
+DATABASE_URL=postgresql://tokenmaster:${DB_PASSWORD}@localhost:5432/tokenmaster_db
+
+# ========================================
+# REDIS CONFIGURATION
+# ========================================
+REDIS_PASSWORD=USTAW_SILNE_HASLO_REDIS
+REDIS_URL=redis://:${REDIS_PASSWORD}@localhost:6379
+REDIS_TTL=300
+
+# ========================================
+# API KEYS - SKONFIGURUJ WSZYSTKIE KLUCZE
+# ========================================
+GEMINI_API_KEY_1=TUTAJ_WKLEJ_PIERWSZY_KLUCZ_GEMINI
+GEMINI_API_KEY_2=TUTAJ_WKLEJ_DRUGI_KLUCZ_GEMINI
+GEMINI_API_KEY_3=TUTAJ_WKLEJ_TRZECI_KLUCZ_GEMINI
+GEMINI_API_KEY_4=TUTAJ_WKLEJ_CZWARTY_KLUCZ_GEMINI
+
+PERPLEXITY_API_KEY=TUTAJ_WKLEJ_KLUCZ_PERPLEXITY
+DEEPSEEK_API_KEY=TUTAJ_WKLEJ_KLUCZ_DEEPSEEK
+AIMLAPI_KEY=TUTAJ_WKLEJ_KLUCZ_AIMLAPI
+
+# ========================================
+# MONITORING I LOGGING
+# ========================================
+GRAFANA_PASSWORD=USTAW_SILNE_HASLO_GRAFANA
+PROMETHEUS_RETENTION=30d
+LOG_LEVEL=info
+METRICS_ENABLED=true
+
+# ========================================
+# SECURITY CONFIGURATION
+# ========================================
+JWT_SECRET=WYGENERUJ_LOSOWY_64_ZNAKOWY_KLUCZ_JWT
+SESSION_SECRET=WYGENERUJ_LOSOWY_32_ZNAKOWY_KLUCZ_SESJI
+CORS_ORIGIN=https://tokenmaster.ai,https://app.tokenmaster.ai
+RATE_LIMIT_WINDOW=3600
+RATE_LIMIT_MAX=1000
+
+# ========================================
+# SSL/TLS CERTIFICATES
+# ========================================
+SSL_CERT_PATH=/etc/nginx/ssl/tokenmaster.crt
+SSL_KEY_PATH=/etc/nginx/ssl/tokenmaster.key
+SSL_DHPARAM_PATH=/etc/nginx/ssl/dhparam.pem
+
+# ========================================
+# EMAIL NOTIFICATIONS
+# ========================================
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=notifications@tokenmaster.ai
+SMTP_PASS=HASLO_EMAIL_SMTP
+EMAIL_FROM=TokenMaster System <noreply@tokenmaster.ai>
+
+# ========================================
+# SLACK INTEGRATION
+# ========================================
+SLACK_WEBHOOK_URL=https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK
+SLACK_CHANNEL=#tokenmaster-alerts
+SLACK_USERNAME=TokenMaster Bot
+
+# ========================================
+# PERFORMANCE TUNING
+# ========================================
+MAX_CONCURRENT_REQUESTS=10
+REQUEST_TIMEOUT=30000
+RETRY_ATTEMPTS=3
+CACHE_ENABLED=true
+CACHE_TTL=300000
+
+# Worker processes
+WORKER_PROCESSES=auto
+WORKER_CONNECTIONS=1024
+
+# Memory limits
+NODE_MAX_OLD_SPACE_SIZE=4096
+UV_THREADPOOL_SIZE=32
+
+# ========================================
+# API RATE LIMITING
+# ========================================
+PERPLEXITY_RATE_LIMIT=1000
+GEMINI_RATE_LIMIT=10000
+DEEPSEEK_RATE_LIMIT=5000
+AIMLAPI_RATE_LIMIT=2000
+
+# ========================================
+# BACKUP CONFIGURATION  
+# ========================================
+BACKUP_ENABLED=true
+BACKUP_SCHEDULE=0 2 * * *
+BACKUP_RETENTION_DAYS=30
+BACKUP_S3_BUCKET=tokenmaster-backups
+AWS_ACCESS_KEY_ID=TWOJ_AWS_ACCESS_KEY
+AWS_SECRET_ACCESS_KEY=TWOJ_AWS_SECRET_KEY
+AWS_REGION=eu-central-1
+
+# ========================================
+# CDN CONFIGURATION
+# ========================================
+CDN_ENABLED=true
+CDN_URL=https://cdn.tokenmaster.ai
+CLOUDFLARE_API_KEY=TWOJ_CLOUDFLARE_API_KEY
+CLOUDFLARE_ZONE_ID=TWOJ_CLOUDFLARE_ZONE_ID
+
+# ========================================
+# HEALTH CHECKS
+# ========================================
+HEALTH_CHECK_ENABLED=true
+HEALTH_CHECK_INTERVAL=30
+HEALTH_CHECK_TIMEOUT=10
+HEALTH_CHECK_RETRIES=3
+
+# ========================================
+# DEVELOPMENT OVERRIDES (tylko dla dev)
+# ========================================
+# Odkomentuj tylko w środowisku developerskim
+# NODE_ENV=development
+# LOG_LEVEL=debug
+# CACHE_ENABLED=false
+# METRICS_ENABLED=false
+
+# ========================================
+# DODATKOWE KONFIGURACJE
+# ========================================
+TIMEZONE=Europe/Warsaw
+LOCALE=pl_PL.UTF-8
+MAX_FILE_SIZE=10MB
+UPLOAD_DIR=./uploads
+TEMP_DIR=./tmp
+
+# Auto-scaling
+AUTO_SCALING_ENABLED=true
+MIN_INSTANCES=2
+MAX_INSTANCES=10
+TARGET_CPU_UTILIZATION=70
+
+# Feature flags
+QUANTUM_OPTIMIZATION_ENABLED=false
+BIOFEEDBACK_ENABLED=false
+GAMIFICATION_ENABLED=true
+ML_INDEXING_ENABLED=true
+
+# ========================================
+# INSTRUKCJE KONFIGURACJI
+# ========================================
+# 1. Skopiuj ten plik do .env
+# 2. Uzupełnij wszystkie wartości oznaczone TUTAJ_WKLEJ / USTAW_SILNE_HASLO
+# 3. Wygeneruj silne hasła dla baz danych (min. 32 znaki)
+# 4. Skonfiguruj wszystkie 4 klucze Gemini API
+# 5. Ustaw proper SSL certificates paths
+# 6. Skonfiguruj backup strategy
+# 7. Test configuration: npm run config:validate

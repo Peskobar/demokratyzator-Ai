@@ -1,0 +1,515 @@
+# TokenMaster AI Optimizer - Production .gitignore
+
+# ========================================
+# DANE WRAŻLIWE - NIGDY NIE COMMITUJ
+# ========================================
+.env
+.env.local
+.env.production
+.env.staging
+config/api-keys.js
+ssl/*.key
+ssl/*.pem
+ssl/*.crt
+backup/
+secrets/
+*.p12
+*.pfx
+
+# ========================================
+# NODE.JS DEPENDENCIES
+# ========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Grunt intermediate storage
+.grunt
+
+# Bower dependency directory
+bower_components
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons
+build/Release
+
+# Dependency directories
+jspm_packages/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+out
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+public
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Rollup.js default build output
+dist/
+
+# Uncomment these if you have them in your project
+# .svelte-kit
+
+# ========================================
+# DOCKER I KONTENERYZACJA
+# ========================================
+*.tar
+*.tar.gz
+Dockerfile.prod
+docker-compose.override.yml
+.docker/
+
+# ========================================
+# LOGI I MONITORING
+# ========================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Runtime logs
+combined.log
+error.log
+access.log
+app.log
+
+# Monitoring data
+prometheus/data/
+grafana/data/
+elasticsearch/data/
+kibana/data/
+
+# ========================================
+# CACHE I TYMCZASOWE
+# ========================================
+cache/
+tmp/
+temp/
+.cache/
+.tmp/
+.temp/
+
+# Redis dump
+dump.rdb
+
+# ========================================
+# BAZY DANYCH
+# ========================================
+*.sqlite
+*.sqlite3
+*.db
+*.sql.backup
+pg_dump_*.sql
+database_backup_*
+
+# PostgreSQL
+*.backup
+*.dump
+
+# ========================================
+# IDE I EDYTORY
+# ========================================
+
+# Visual Studio Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+# JetBrains IDEs
+.idea/
+*.iws
+*.iml
+*.ipr
+.idea_modules/
+atlassian-ide-plugin.xml
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+[._]*.s[a-v][a-z]
+!*.svg
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+Session.vim
+Sessionx.vim
+.netrwhist
+*~
+tags
+[._]*.un~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+.org-id-locations
+*_archive
+*_flymake.*
+/eshell/history
+/eshell/lastdir
+/elpa/
+*.rel
+
+# ========================================
+# SYSTEMY OPERACYJNE
+# ========================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ========================================
+# PLIKI TYMCZASOWE I BACKUP
+# ========================================
+*.bak
+*.backup
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.#*
+#*#
+
+# ========================================
+# PYTHON (dla skryptów pomocniczych)
+# ========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# PEP 582
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# ========================================
+# CERTYFIKATY I KLUCZE
+# ========================================
+*.pem
+*.key
+*.crt
+*.cer
+*.der
+*.p7b
+*.p7c
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.truststore
+
+# Let's Encrypt
+/etc/letsencrypt/
+
+# ========================================
+# CLOUD I DEPLOYMENT
+# ========================================
+.aws/
+.gcp/
+.azure/
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
+# Kubernetes
+kubeconfig
+*.kubeconfig
+
+# Helm
+charts/*.tgz
+
+# ========================================
+# MONITORING I METRYKI
+# ========================================
+monitoring/data/
+metrics/
+alerts/
+traces/
+
+# ========================================
+# UPLOADS I MEDIA
+# ========================================
+uploads/
+media/
+assets/uploads/
+public/uploads/
+static/uploads/
+
+# ========================================
+# CUSTOM PROJECT SPECIFIC
+# ========================================
+# Dodaj tutaj specyficzne dla projektu
+
+# API response cache
+api_cache/
+
+# ML models (jeśli duże)
+models/*.pkl
+models/*.h5
+models/*.pb
+
+# Test data
+test_data/
+fixtures/large_*
+
+# Performance profiling
+*.prof
+*.pprof
+profile_*
+
+# ========================================
+# DEPENDENCIES ARCHIVES
+# ========================================
+*.zip
+*.rar
+*.7z
+*.tar.xz
+*.tar.bz2
+
+# ========================================
+# COMPILED OUTPUT
+# ========================================
+/dist/
+/tmp/
+/out-tsc/
+/build/
+
+# ========================================
+# PACKAGE MANAGERS
+# ========================================
+.pnp.*
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.js
+
+# ========================================
+# TESTING
+# ========================================
+/coverage
+/.nyc_output
+junit.xml
+test-results/
+playwright-report/
+test-results.xml
+
+# ========================================
+# MISC
+# ========================================
+.serverless/
+.fusebox/
+.dynamodb/
+.tern-port
+.vscode-test
+.expo/
+.turbo
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
